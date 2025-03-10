@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>TODOLIST_Aplication</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TODOLIST-Domain\TODOLIST-Domain.csproj" />
+    <ProjectReference Include="..\TODOLIST-Infraestructure\TODOLIST-Infraestructure.csproj" />
+  </ItemGroup>
+
+</Project>
