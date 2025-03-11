@@ -12,11 +12,13 @@ namespace TODO.Services
     {
         private readonly TodoContext _context;
         private readonly EncriptarHelper _encriptarHelper;
+        private readonly TokenHelper _tokenHelper;
 
-        public AccesoService(TodoContext context, EncriptarHelper encriptarHelper)
+        public AccesoService(TodoContext context, EncriptarHelper encriptarHelper, TokenHelper tokenHelper)
         {
             this._context = context;
             this._encriptarHelper = encriptarHelper;
+            this._tokenHelper = tokenHelper;
         }
 
         //retorna la lista de users en la base de datos
@@ -26,19 +28,24 @@ namespace TODO.Services
         }
 
         //retorna el modelo por el correo y contraseña que se encuenta encriptada
-        public async Task<Usuario> Login(LoginDTO modelo)
+        public async Task<string> Login(LoginDTO modelo)
         {
+            var contrasenaEncriptada = _encriptarHelper.Encriptar(modelo.Contrasena!);
             var BuscarUsuario = await _context.Usuario
-                        .FirstOrDefaultAsync(x => x.Correo == modelo.Correo
-                        && x.Contrasena == _encriptarHelper.Encriptar(modelo.Contrasena!));
+                                .FirstOrDefaultAsync(x => x.Correo == modelo.Correo
+                                 && x.Contrasena == contrasenaEncriptada);
 
-            return BuscarUsuario!;
+            if (BuscarUsuario == null)
+                return null!;
+
+            //retorna el usuario autenticado con el token
+            return _tokenHelper.TokenJwt(BuscarUsuario);
         }
 
         //retorna un usuarioque no se encuentra en la tabla usuarios de la db
         public async Task<Usuario?> Registro(RegistroDTO modelo)
         {
-            // Verifica si el usuario ya existe en la DB
+            // Verifica si el usuario ya existe en la DB y si no esta lo registra
             var existeUsuario = await _context.Usuario.AnyAsync(x => x.Correo == modelo.Correo);
 
             if (existeUsuario)

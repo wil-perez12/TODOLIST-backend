@@ -16,12 +16,10 @@ namespace TODO.Controllers
     public class AccesoController : ControllerBase
     {
         private readonly IAccesible _Iacceso;
-        private readonly TokenHelper _helpers;
 
-        public AccesoController(IAccesible iacceso, TokenHelper helpers)
+        public AccesoController(IAccesible iacceso)
         {
             _Iacceso = iacceso;
-            _helpers = helpers;
         }
 
         //endpoint para obtener la lista de usuarios
@@ -36,13 +34,12 @@ namespace TODO.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO modelo)
         {
-            var usuarioAutenticado = await _Iacceso.Login(modelo);
+            var token = await _Iacceso.Login(modelo);
 
-            if (usuarioAutenticado == null)
+            if (token == null)
                 return Unauthorized(new { mensaje = "Credenciales Incorrectas" });
-            else
 
-                return Ok(_helpers.TokenJwt(usuarioAutenticado));
+            return Ok(new { Token = token });
         }
 
 
