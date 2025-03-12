@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using System.Text;
 using TODO.ContextDB;
 using TODO.Helpers;
 using TODO.Interfaces;
 using TODO.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,24 +17,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddEndpointsApiExplorer();
+
+//habilitando la notación para los endpoint
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "API de Tareas",
-        Version = "v1",
-        Description = "API para la gestión de tareas con autenticación JWT",
-        Contact = new OpenApiContact
-        {
-            Name = "Wilnel",
-            Email = "perezwilnel12@gmail.com",
-        }
-    });
-
-    //// Habilitar comentarios XML en Swagger
-    //var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    //c.IncludeXmlComments(xmlPath);
+    c.EnableAnnotations(); 
 });
 
 //scope para la interfaz de acceso al login
