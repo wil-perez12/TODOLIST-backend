@@ -72,7 +72,7 @@ namespace TODO.Controllers
                 return NotFound("Tarea no encontrada con este estado");
         }
 
-        [HttpGet("TareasBy/{estado}")]
+        [HttpGet("TareasBy/Usuario{id}")]
 
         [SwaggerOperation(
         Summary = "Lista de tareas por id de usuario",
