@@ -21,7 +21,6 @@ namespace TODO.Controllers
 
         [HttpGet("ListaTareas")]
 
-
         [SwaggerOperation(
         Summary = "Lista de tareas",
         Description = "Devuelve una lista de tareas"
@@ -71,6 +70,25 @@ namespace TODO.Controllers
                 return Ok(new {mensaje = $"{lista}"});
 
                 return NotFound("Tarea no encontrada con este estado");
+        }
+
+        [HttpGet("TareasBy/{estado}")]
+
+        [SwaggerOperation(
+        Summary = "Lista de tareas por id de usuario",
+        Description = "obtiene el id del usuario por tarea"
+        )]
+        [SwaggerResponse(200, "Devuelve la lista")]
+        [SwaggerResponse(404, "Devuelve: Tarea no encontrada con este id usuario")]
+        [SwaggerResponse(401, "no autorizado si no estas autenticado")]
+        public async Task<IActionResult> GetTareaByIdUser(int id)
+        {
+            var lista = await _servicio.GetTareaByIdUsuario(id);
+
+            if (lista != null)
+                return Ok(new { mensaje = $"{lista}" });
+
+            return NotFound("Tarea no encontrada con este id usuario");
         }
 
         [HttpPost("New/tarea")]

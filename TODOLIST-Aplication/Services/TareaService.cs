@@ -51,6 +51,15 @@ namespace TODO.Services
             return tarea!;
         }
 
+        public async Task<List<Tareas>> GetTareaByIdUsuario(int id)
+        {
+
+            var tareaIdUser = await _context.Tareas.Where(x => x.IdUsuario == id)
+                                                   .ToListAsync(); 
+
+            return tareaIdUser;
+        }
+
         public async Task<Tareas> PostTarea(TareaDTO modelo)
         {
             try
