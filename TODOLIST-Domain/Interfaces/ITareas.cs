@@ -8,7 +8,7 @@ namespace TODO.Interfaces
 
         Task<List<Tareas>> GetTarea();
         Task<Tareas> GetTareaById(int id);
-        Task<Tareas> GetTareaByEstado(string estado);
+        Task<List<Tareas>> GetTareaByEstado(string estado);
         Task<Tareas> PostTarea(TareaDTO modelo);
         Task<Tareas> PutTarea(int id,TareaDTO modelo);
         Task<bool> DeleteTarea(int id);

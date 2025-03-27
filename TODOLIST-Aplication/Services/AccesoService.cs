@@ -42,7 +42,7 @@ namespace TODO.Services
             return _tokenHelper.TokenJwt(BuscarUsuario);
         }
 
-        //retorna un usuarioque no se encuentra en la tabla usuarios de la db
+        //retorna un usuario que no se encuentra en la tabla usuarios de la db
         public async Task<Usuario?> Registro(RegistroDTO modelo)
         {
             // Verifica si el usuario ya existe en la DB y si no esta lo registra

@@ -35,12 +35,12 @@ namespace TODO.Services
             return await _context.Tareas.ToListAsync();
         }
 
-        public async Task<Tareas> GetTareaByEstado(string estado)
+        public async Task<List<Tareas>> GetTareaByEstado(string estado)
         {
             var tareaEstado = await _context.Tareas.Where(x => x.Estado == estado)
-                                                    .FirstOrDefaultAsync();
+                                                    .ToListAsync();
 
-            return tareaEstado!;
+            return tareaEstado;
         }
 
         public async Task<Tareas> GetTareaById(int id)

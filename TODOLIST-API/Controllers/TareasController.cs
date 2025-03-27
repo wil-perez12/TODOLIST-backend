@@ -41,17 +41,17 @@ namespace TODO.Controllers
         Description = "obtiene el id de la tarea"
         )]
         [SwaggerResponse(200, "Devuelve la lista")]
-        [SwaggerResponse(400, "Devuelve: Tarea no encontrada con este ID")]
+        [SwaggerResponse(404, "Devuelve: Tarea no encontrada con este ID")]
         [SwaggerResponse(401, "no autorizado si no estas autenticado")]
         public async Task<IActionResult> GetTareaById(int id)
         {
             var lista = await _servicio.GetTareaById(id);
 
             if (lista != null)
-                return Ok(lista);
+                return Ok(new { mensaje = $"{lista}" });
 
-            else
-                return BadRequest("Tarea no encontrada con este ID");
+
+                return NotFound("Tarea no encontrada con este ID");
         }
 
         [HttpGet("TareasBy/{estado}")]
@@ -61,17 +61,16 @@ namespace TODO.Controllers
         Description = "obtiene el estado de la tarea"
         )]
         [SwaggerResponse(200, "Devuelve la lista")]
-        [SwaggerResponse(400, "Devuelve: Tarea no encontrada con este estado")]
+        [SwaggerResponse(404, "Devuelve: Tarea no encontrada con este estado")]
         [SwaggerResponse(401, "no autorizado si no estas autenticado")]
         public async Task<IActionResult> GetTareaById(string estado)
         {
             var lista = await _servicio.GetTareaByEstado(estado);
 
             if (lista != null)
-                return Ok(lista);
+                return Ok(new {mensaje = $"{lista}"});
 
-            else
-                return BadRequest("Tarea no encontrada con este estado");
+                return NotFound("Tarea no encontrada con este estado");
         }
 
         [HttpPost("New/tarea")]
@@ -101,16 +100,16 @@ namespace TODO.Controllers
         Description = "obtiene el id, titulo, descripcion, estado y ID-usuario"
         )]
         [SwaggerResponse(200, "Devuelve la tarea modificada")]
-        [SwaggerResponse(400, "Id incorrecto o error al actualizar la tarea")]
+        [SwaggerResponse(404, "Id incorrecto o error al actualizar la tarea")]
         [SwaggerResponse(401, "no autorizado si no estas autenticado")]
         public async Task<IActionResult> PutTarea(int id, TareaDTO modelo)
         {
             var updateTarea = await _servicio.PutTarea(id, modelo);
 
             if (updateTarea == null)
-                return BadRequest("Id incorrecto o error al actualizar la tarea");
+                return NotFound("Id incorrecto o error al actualizar la tarea");
 
-            else
+
                 return Ok(updateTarea);
         }
 
@@ -121,15 +120,15 @@ namespace TODO.Controllers
         Description = "obtiene el id de la tarea"
         )]
         [SwaggerResponse(200, "Tarea con ID eliminada!")]
-        [SwaggerResponse(400, "Id no encontrado")]
+        [SwaggerResponse(404, "Id no encontrado")]
         [SwaggerResponse(401, "no autorizado si no estas autenticado")]
         public async Task<IActionResult> DeleteTarea(int id)
         {
             var extisteID = await _servicio.DeleteTarea(id);
 
             if (!extisteID)
-                return BadRequest("Id no encontrado");
-            else
+                return NotFound("Id no encontrado");
+   
                 return Ok(new { mensaje = $"Tarea con ID: {id}, eliminada!" });
 
         }
