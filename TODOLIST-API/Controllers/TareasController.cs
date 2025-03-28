@@ -47,8 +47,7 @@ namespace TODO.Controllers
             var lista = await _servicio.GetTareaById(id);
 
             if (lista != null)
-                return Ok(new { mensaje = $"{lista}" });
-
+                return Ok(lista);
 
                 return NotFound("Tarea no encontrada con este ID");
         }
@@ -67,12 +66,12 @@ namespace TODO.Controllers
             var lista = await _servicio.GetTareaByEstado(estado);
 
             if (lista != null)
-                return Ok(new {mensaje = $"{lista}"});
+                return Ok(lista);
 
                 return NotFound("Tarea no encontrada con este estado");
         }
 
-        [HttpGet("TareasBy/Usuario{id}")]
+        [HttpGet("TareasBy/Usuario/{id}")]
 
         [SwaggerOperation(
         Summary = "Lista de tareas por id de usuario",
@@ -86,7 +85,7 @@ namespace TODO.Controllers
             var lista = await _servicio.GetTareaByIdUsuario(id);
 
             if (lista != null)
-                return Ok(new { mensaje = $"{lista}" });
+                return Ok(lista);
 
             return NotFound("Tarea no encontrada con este id usuario");
         }
