@@ -21,6 +21,7 @@ namespace TODO.Controllers
             _Iacceso = iacceso;
         }
 
+        //lista de usuarios registrados
         [HttpGet("Usuarios")]
 
         [SwaggerOperation(
@@ -36,23 +37,31 @@ namespace TODO.Controllers
 
         }
 
-
+        // el usuario se logea via este endpoint
         [HttpPost("Login")]
 
         [SwaggerOperation(
         Summary = "Obtiene correo y contraseña",
         Description = "Devuelve un jeson web token"
         )]
-        [SwaggerResponse(200, "Devuelve el token")]
-        [SwaggerResponse(400, "Devuelve: Credenciales Incorrectas")]
+        [SwaggerResponse(200, "Devuelve el token, succes: true y Token: el token")]
+        [SwaggerResponse(400, "Devuelve: Credenciales Incorrectas, succes: false ")]
         public async Task<IActionResult> Login([FromBody] LoginDTO modelo)
         {
             var token = await _Iacceso.Login(modelo);
 
             if (token == null)
-                return BadRequest(new { mensaje = "Credenciales Incorrectas" });
+                return BadRequest(new
+                {
+                    succes = false,
+                    mensaje = "Credenciales Incorrectas"
+                });
 
-            return Ok(new { Token = token });
+            return Ok(new 
+            { 
+                succes = true,
+                Token = token 
+            });
         }
 
 
@@ -63,17 +72,25 @@ namespace TODO.Controllers
         Summary = "Obtiene nombre, apellido, correo y contraseña",
         Description = "registra el usuario en la base de datos"
         )]
-        [SwaggerResponse(200, "Devuelve: Usuario registrado correctamente")]
-        [SwaggerResponse(400, "Devuelve: El usuario ya existe o hubo un error en el registro")]
+        [SwaggerResponse(200, "Devuelve: Usuario registrado correctamente,succes: true")]
+        [SwaggerResponse(400, "Devuelve: El usuario ya existe o hubo un error en el registro, succes: false")]
         public async Task<IActionResult> Registro([FromBody] RegistroDTO modelo)
         {
 
             var registro = await _Iacceso.Registro(modelo);
 
             if (registro == null)
-                return BadRequest(new { mensaje = "El usuario ya existe o hubo un error en el registro" });
+                return BadRequest(new
+                {
+                    succes = false,
+                    mensaje = "El usuario ya existe o hubo un error en el registro"
+                });
             else
-                return Ok(new { mensaje = "Usuario registrado correctamente." });
+                return Ok(new
+                {
+                    succes = true,
+                    mensaje = "Usuario registrado correctamente."
+                });
         }
 
     }
