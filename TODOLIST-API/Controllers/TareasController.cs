@@ -155,7 +155,7 @@ namespace TODO.Controllers
         }
 
         //Actualizar tarea
-        [HttpPut("update/tarea")]
+        [HttpPut("update/tarea/{id}")]
 
         [SwaggerOperation(
         Summary = "Modificar Tarea",
