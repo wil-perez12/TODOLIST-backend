@@ -185,7 +185,7 @@ namespace TODO.Controllers
         }
 
         //Eliminar tarea por su id
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
 
         [SwaggerOperation(
         Summary = "Eliminar Tarea",
