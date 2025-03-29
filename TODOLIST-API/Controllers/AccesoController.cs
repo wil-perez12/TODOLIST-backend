@@ -28,12 +28,16 @@ namespace TODO.Controllers
         Summary = "Lista de usurios",
         Description = "Devuelve una lista de usuarios"
         )]
-        [SwaggerResponse(200, "Devuelve la lista")]
+        [SwaggerResponse(200, "Devuelve la lista, succes:true")]
         public async Task<IActionResult> GetUsuarios()
         {
             var lista = await _Iacceso.GetUsuario();
 
-            return Ok(lista);
+            return Ok(new
+            {
+                succes = true,
+                values = lista
+            });
 
         }
 

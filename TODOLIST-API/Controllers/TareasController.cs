@@ -26,12 +26,15 @@ namespace TODO.Controllers
         Summary = "Lista de tareas",
         Description = "Devuelve una lista de tareas"
         )]
-        [SwaggerResponse(200, "Devuelve la lista")]
+        [SwaggerResponse(200, "Devuelve la lista, succes: true")]
         [SwaggerResponse(401, "no autorizado si no estas autenticado")]
         public async Task<IActionResult> GetTareas()
         {
             var lista = await _servicio.GetTarea();
-            return Ok(lista);
+            return Ok(new { 
+                   succes = true,
+                   values = lista
+            });
         }
 
         //lista de tareas por id
