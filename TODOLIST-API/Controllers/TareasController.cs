@@ -97,7 +97,7 @@ namespace TODO.Controllers
                 });
         }
 
-        //Lista de tareas por id
+        //Lista de tareas por id del usuario
         [HttpGet("TareasBy/Usuario/{id}")]
 
         [SwaggerOperation(
