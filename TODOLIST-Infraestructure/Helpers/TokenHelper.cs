@@ -24,7 +24,7 @@ namespace TODO.Helpers
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, modelo.Id.ToString()),
+                new Claim("sub", modelo.Id.ToString()),
                 new Claim(ClaimTypes.Email, modelo.Correo!)
             };
 
