@@ -142,7 +142,7 @@ namespace TODO.Controllers
             if (newTarea == null)
                 return StatusCode(500, new
                 {
-                    success = false,
+                    succes = false,
                     mensaje = "Error al crear la tarea",
                     values = null as object
                 });
@@ -150,7 +150,7 @@ namespace TODO.Controllers
 
             return Ok(new
             {
-                success = true,
+                succes = true,
                 mensaje = "Creación exitosa",
                 values = newTarea
             });
@@ -173,7 +173,7 @@ namespace TODO.Controllers
 
             if (updateTarea == null)
                 return NotFound(new {
-                    success = false,
+                    succes = false,
                     mensaje ="Id incorrecto o error al actualizar la tarea",
                     values = null as object
                 });
@@ -181,7 +181,7 @@ namespace TODO.Controllers
 
             return Ok(new
             {
-                success = true,
+                succes = true,
                 mensaje = "Modificación exitosa",
                 values = updateTarea
             });
