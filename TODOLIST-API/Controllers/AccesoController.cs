@@ -99,7 +99,7 @@ namespace TODO.Controllers
 
 
         // verifica que el token sea valido y no pueda ser modificado
-        [HttpGet("validarToken/{token}")]
+        [HttpGet("validarToken")]
 
         [SwaggerOperation(
         Summary = "Obtiene el token",
