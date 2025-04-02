@@ -5,6 +5,7 @@ using TODO.ContextDB;
 using TODO.Helpers;
 using TODO.Interfaces;
 using TODO.Services;
+using TODOLIST_Infraestructure.Helpers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddScoped<IAccesible, AccesoService>();
 builder.Services.AddScoped<EncriptarHelper>();
 builder.Services.AddScoped<TokenHelper>();
+builder.Services.AddScoped<ValidarTokenHelper>();
 
 //socpe para la interfaz de tareas
 builder.Services.AddScoped<ITareas, TareaService>();

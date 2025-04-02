@@ -4,6 +4,7 @@ using TODO.Models.Dtos;
 using TODO.Helpers;
 using Models.Entidades;
 using Microsoft.EntityFrameworkCore;
+using TODOLIST_Infraestructure.Helpers;
 
 
 namespace TODO.Services
@@ -13,12 +14,14 @@ namespace TODO.Services
         private readonly TodoContext _context;
         private readonly EncriptarHelper _encriptarHelper;
         private readonly TokenHelper _tokenHelper;
+        private readonly ValidarTokenHelper _ValidarTokenHelper;
 
-        public AccesoService(TodoContext context, EncriptarHelper encriptarHelper, TokenHelper tokenHelper)
+        public AccesoService(TodoContext context, EncriptarHelper encriptarHelper, TokenHelper tokenHelper, ValidarTokenHelper ValidartokenHelper)
         {
             this._context = context;
             this._encriptarHelper = encriptarHelper;
             this._tokenHelper = tokenHelper;
+            this._ValidarTokenHelper = ValidartokenHelper;
         }
 
         //retorna la lista de users en la base de datos
@@ -72,6 +75,14 @@ namespace TODO.Services
                 Console.WriteLine($"Error al registrar usuario: {ex.Message}");
                 return null;
             }
+        }
+
+
+        //metodo para validar el token
+        public bool validarToken(string token)
+        {
+           bool valid = _ValidarTokenHelper.ValidarToken(token);
+           return valid;
         }
     }
 }

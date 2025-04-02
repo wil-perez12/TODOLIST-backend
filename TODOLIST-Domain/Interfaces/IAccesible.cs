@@ -9,5 +9,6 @@ namespace TODO.Interfaces
         Task<string> Login(LoginDTO modelo);
         Task<Usuario> Registro(RegistroDTO modelo);
         Task<List<Usuario>> GetUsuario();
+        bool validarToken(string token);
     }
 }

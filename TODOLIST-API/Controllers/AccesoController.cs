@@ -97,5 +97,31 @@ namespace TODO.Controllers
                 });
         }
 
+
+        // verifica que el token sea valido y no pueda ser modificado
+        [HttpGet("validarToken/{token}")]
+
+        [SwaggerOperation(
+        Summary = "Obtiene el token",
+        Description = "Devuelve una respuesta booleana"
+        )]
+        [SwaggerResponse(200, "Devuelve succes: true")]
+        [SwaggerResponse(404, "Devuelve succes: false ")]
+        public IActionResult ValidarToken([FromQuery] string token)
+        {
+            bool isCorrect = _Iacceso.validarToken(token);
+
+            if (!isCorrect)
+                return NotFound(new
+                {
+                    succes = false
+                });
+
+            return Ok(new
+            {
+                succes = true
+            });
+        }
+
     }
 }
