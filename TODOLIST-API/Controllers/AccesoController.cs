@@ -123,5 +123,15 @@ namespace TODO.Controllers
             });
         }
 
+        [SwaggerOperation(
+        Summary = "pin de activacion",
+        Description = "lanza un estatus, esto para mantener el ervidor despierto"
+        )]
+        [SwaggerResponse(200, "Devuelve api activa")]
+        [HttpGet("pin")]
+        public IActionResult Ping()
+        {
+            return Ok("API activa");
+        }
     }
 }
